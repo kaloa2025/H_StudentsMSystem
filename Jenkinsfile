@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        EC2_USER = 'ec2-user' // Update with your EC2 username
+        EC2_USER = 'ubuntu' // Update with your EC2 username
         EC2_HOST = '13.61.13.30' // Public IP of EC2
         PEM_FILE = '/home/aalok2025/honors.pem' // Full path to your SSH private key
         APP_NAME = 'student'
