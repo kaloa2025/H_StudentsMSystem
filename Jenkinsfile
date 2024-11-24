@@ -30,9 +30,9 @@ pipeline {
         stage('Upload to EC2') {
             steps {
                 echo 'Uploading the JAR file to EC2...'
-                sh """
-                scp -i ${PEM_FILE} target/${JAR_NAME} ${EC2_USER}@${EC2_HOST}:/home/${EC2_USER}/${JAR_NAME}
-                """
+                sh '''
+                scp -i /home/aalok2025/honors.pem C:/Users/Lenovo/.jenkins/workspace/H_SMS/target/aalok_honors-0.0.1-SNAPSHOT.jar ubuntu@13.61.13.30:/home/ubuntu/student-0.0.1-SNAPSHOT.jar
+                '''
             }
         }
         stage('Check Environment') {
