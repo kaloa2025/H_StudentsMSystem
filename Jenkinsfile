@@ -11,7 +11,9 @@ pipeline {
     tools {
         maven 'Maven' // Use the name you provided in Global Tool Configuration
     }
-
+    tools {
+        jdk 'Java21'
+    }
     stages {
         stage('Checkout Code') {
             steps {
@@ -33,6 +35,12 @@ pipeline {
                 sh """
                 scp -i ${PEM_FILE} target/${JAR_NAME} ${EC2_USER}@${EC2_HOST}:/home/${EC2_USER}/${JAR_NAME}
                 """
+            }
+        }
+        stage('Check Environment') {
+            steps {
+                sh 'java -version'
+                sh 'mvn -version'
             }
         }
 
