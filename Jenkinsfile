@@ -9,9 +9,7 @@ pipeline {
         JAR_NAME = "${APP_NAME}-0.0.1-SNAPSHOT.jar"
     }
     tools {
-        maven 'Maven' // Use the name you provided in Global Tool Configuration
-    }
-    tools {
+        maven 'Maven'
         jdk 'Java21'
     }
     stages {
