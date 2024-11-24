@@ -31,7 +31,7 @@ pipeline {
             steps {
                 echo 'Uploading the JAR file to EC2...'
                 sh '''
-                scp -i /home/aalok2025/honors.pem C:/Users/Lenovo/.jenkins/workspace/H_SMS/target/aalok_honors-0.0.1-SNAPSHOT.jar ubuntu@13.61.13.30:/home/ubuntu/student-0.0.1-SNAPSHOT.jar
+                scp -i C:/Users/Lenovo/Downloads/honors.pem C:/Users/Lenovo/.jenkins/workspace/H_SMS/target/aalok_honors-0.0.1-SNAPSHOT.jar ubuntu@13.61.13.30:/home/ubuntu/student-0.0.1-SNAPSHOT.jar
                 '''
             }
         }
