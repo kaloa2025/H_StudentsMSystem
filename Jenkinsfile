@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         EC2_USER = 'ec2-user' // Update with your EC2 username
-        EC2_HOST = '<ec2-instance-ip>' // Public IP of EC2
-        PEM_FILE = '/path/to/key.pem' // Full path to your SSH private key
+        EC2_HOST = '13.61.13.30' // Public IP of EC2
+        PEM_FILE = 'honors.pem' // Full path to your SSH private key
         APP_NAME = 'student-management-system'
         JAR_NAME = "${APP_NAME}-0.0.1-SNAPSHOT.jar"
     }
