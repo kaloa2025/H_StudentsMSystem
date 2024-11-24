@@ -4,7 +4,7 @@ pipeline {
     environment {
         EC2_USER = 'ubuntu' // Update with your EC2 username
         EC2_HOST = '13.61.13.30' // Public IP of EC2
-        PEM_FILE = '/home/aalok2025/honors.pem' // Full path to your SSH private key
+        PEM_FILE = 'C:/Users/Lenovo/Downloads/honors.pem' // Full path to your SSH private key
         APP_NAME = 'student'
         JAR_NAME = "${APP_NAME}-0.0.1-SNAPSHOT.jar"
     }
