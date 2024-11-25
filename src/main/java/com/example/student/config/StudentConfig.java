@@ -17,11 +17,13 @@ public class StudentConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        HttpSecurity httpSecurity=http.authorizeHttpRequests(authorize->authorize
-                .requestMatchers("/students/login","/students/register", "/students/{id}").permitAll()
-                .anyRequest().authenticated()
-                ).formLogin(withDefaults()).httpBasic(withDefaults()).csrf(csrf -> csrf.disable());
-        return http.build();
+        return http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/", "/students/login", "/students/register").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(withDefaults())
+                .build();
     }
 
     @Bean

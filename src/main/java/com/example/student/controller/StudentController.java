@@ -1,5 +1,6 @@
 package com.example.student.controller;
 
+import com.example.student.model.LoginRequest;
 import com.example.student.model.Student;
 import com.example.student.service.StudentService;
 import jakarta.validation.Valid;
@@ -22,9 +23,10 @@ public class StudentController {
     }
 
     @PostMapping("/login")
-    public Student login(@RequestParam String email, @RequestParam String password) {
-        return studentService.login(email, password);
+    public Student login(@RequestBody LoginRequest request) {
+        return studentService.login(request.getEmail(), request.getPassword());
     }
+
 
     @PutMapping("/{id}")
     public Student updateUser(@PathVariable Long id, @RequestBody Student user) {
