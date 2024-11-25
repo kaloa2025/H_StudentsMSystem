@@ -3,11 +3,13 @@ package com.example.student.controller;
 import com.example.student.model.LoginRequest;
 import com.example.student.model.Student;
 import com.example.student.service.StudentService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -16,6 +18,7 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
 
     @PostMapping("/register")
     public Student register(@RequestBody Student user) {

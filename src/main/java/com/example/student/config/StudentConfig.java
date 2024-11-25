@@ -18,13 +18,10 @@ public class StudentConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/students/login", "/students/register").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(withDefaults())
+                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
                 .build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
