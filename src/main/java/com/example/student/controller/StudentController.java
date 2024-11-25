@@ -17,26 +17,22 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerStudent(@Valid @RequestBody Student student) {
-        Optional<Student> registeredStudent = studentService.registerStudent(student);
-        if (registeredStudent.isPresent()) {
-            return ResponseEntity.ok(registeredStudent.get());
-        }
-        return ResponseEntity.badRequest().body("Email already exists");
+    public Student register(@RequestBody Student user) {
+        return studentService.register(user);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateStudent(@PathVariable Long id, @Valid @RequestBody Student student) {
-        Optional<Student> updatedStudent = studentService.updateStudent(id, student);
-        if (updatedStudent.isPresent()) {
-            return ResponseEntity.ok(updatedStudent.get());
-        }
-        return ResponseEntity.notFound().build();
+    @PostMapping("/login")
+    public Student login(@RequestParam String email, @RequestParam String password) {
+        return studentService.login(email, password);
+    }
+
+    @PutMapping("/{id}")
+    public Student updateUser(@PathVariable Long id, @RequestBody Student user) {
+        return studentService.updatestudent(id, user);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudent(@PathVariable Long id) {
-        Optional<Student> student = studentService.getStudent(id);
-        return student.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public Student getUser(@PathVariable Long id) {
+        return studentService.getstudent(id);
     }
 }

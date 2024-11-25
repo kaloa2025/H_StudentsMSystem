@@ -18,7 +18,7 @@ public class StudentConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         HttpSecurity httpSecurity=http.authorizeHttpRequests(authorize->authorize
-                .requestMatchers("/students/register", "/students/{id}").permitAll()
+                .requestMatchers("/students/login","/students/register", "/students/{id}").permitAll()
                 .anyRequest().authenticated()
                 ).formLogin(withDefaults()).httpBasic(withDefaults()).csrf(csrf -> csrf.disable());
         return http.build();
