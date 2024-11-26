@@ -9,7 +9,7 @@ pipeline {
         EC2_USER = 'ec2-user'
         EC2_HOST = 'ec2-13-60-201-40.eu-north-1.compute.amazonaws.com'
         PEM_FILE_PATH = 'C:/Users/Lenovo/Downloads/honors.pem'
-        JAR_NAME = 'student-0.0.1-SNAPSHOT.jar'
+        JAR_NAME = 'aalok_honors-0.0.1-SNAPSHOT.jar'
     }
 
     stages {
@@ -22,7 +22,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean install'  // Builds the project and generates JAR
+                bat 'mvn clean install'
             }
             post {
                 success {
