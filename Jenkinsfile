@@ -1,66 +1,56 @@
 pipeline {
     agent any
 
-    environment {
-        EC2_USER = 'ubuntu' // Update with your EC2 username
-        EC2_HOST = '13.61.13.30' // Public IP of EC2
-        PEM_FILE = 'C:/Users/Lenovo/Downloads/honors.pem' // Full path to your SSH private key
-        APP_NAME = 'student'
-        JAR_NAME = "${APP_NAME}-0.0.1-SNAPSHOT.jar"
-    }
     tools {
-        maven 'Maven'
-        jdk 'Java21'
+        maven "Maven"  // Ensure Maven is installed
     }
+
+    environment {
+        EC2_USER = 'ec2-user'
+        EC2_HOST = 'ec2-13-60-201-40.eu-north-1.compute.amazonaws.com'
+        PEM_FILE_PATH = 'C:/Users/Lenovo/Downloads/honors.pem'
+        JAR_NAME = 'devops-0.0.1-SNAPSHOT.jar'
+    }
+
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                echo 'Checking out code from GitHub...'
-                checkout scm
+                // Fetch Github Repository
+                git branch: 'main', url: 'https://github.com/kaloa2025/H_StudentsMSystem'
             }
         }
 
-        stage('Build Application') {
+        stage('Build') {
             steps {
-                echo 'Building the Spring Boot application...'
-                sh 'mvn clean package'
+                bat 'mvn clean install'  // Builds the project and generates JAR
+            }
+            post {
+                success {
+                    archiveArtifacts 'target/*.jar'
+                }
             }
         }
 
-        stage('Upload to EC2') {
+        stage('Deploy') {
             steps {
-                echo 'Uploading the JAR file to EC2...'
-                sh '''
-                scp -i C:/Users/Lenovo/Downloads/honors.pem C:/Users/Lenovo/.jenkins/workspace/H_SMS/target/aalok_honors-0.0.1-SNAPSHOT.jar ubuntu@13.61.13.30:/home/ubuntu/student-0.0.1-SNAPSHOT.jar
-                '''
-            }
-        }
-        stage('Check Environment') {
-            steps {
-                sh 'java -version'
-                sh 'mvn -version'
-            }
-        }
+                script {
+                    // Copy JAR file to the EC2 instance
+                    bat "scp -i \"${PEM_FILE_PATH}\" target/${JAR_NAME} ${EC2_USER}@${EC2_HOST}:/home/ec2-user/"
 
-        stage('Deploy Application') {
-            steps {
-                echo 'Starting the application on EC2...'
-                sh """
-                ssh -i ${PEM_FILE} ${EC2_USER}@${EC2_HOST} << EOF
-                pkill -f ${JAR_NAME} || true
-                nohup java -jar /home/${EC2_USER}/${JAR_NAME} > /home/${EC2_USER}/${APP_NAME}.log 2>&1 &
-                EOF
-                """
+                    // Start the application on the EC2 server
+                    bat "ssh -i \"${PEM_FILE_PATH}\" ${EC2_USER}@${EC2_HOST} java -jar /home/ec2-user/${JAR_NAME}"
+                }
             }
         }
     }
 
     post {
         success {
-            echo 'Deployment Successful!'
+            archiveArtifacts 'target/*.jar'
+            echo 'Deployment successful!'
         }
         failure {
-            echo 'Deployment Failed!'
+            echo 'Build or deployment failed!'
         }
     }
 }
