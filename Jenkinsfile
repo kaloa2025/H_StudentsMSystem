@@ -35,10 +35,10 @@ pipeline {
             steps {
                 script {
                     // Copy JAR file to the EC2 instance
-                    bat "scp -i \"${PEM_FILE_PATH}\" target/${JAR_NAME} ${EC2_USER}@${EC2_HOST}:/home/ec2-user/"
+                    bat "scp -i \"${PEM_FILE_PATH}\" target/${JAR_NAME} ${EC2_USER}@${EC2_HOST}:/home/ubuntu/"
 
                     // Start the application on the EC2 server
-                    bat "ssh -i \"${PEM_FILE_PATH}\" ${EC2_USER}@${EC2_HOST} java -jar /home/ec2-user/${JAR_NAME}"
+                    bat "ssh -i \"${PEM_FILE_PATH}\" ${EC2_USER}@${EC2_HOST} java -jar /home/ubuntu/${JAR_NAME}"
                 }
             }
         }
