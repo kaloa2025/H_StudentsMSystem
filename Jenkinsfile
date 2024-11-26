@@ -9,7 +9,7 @@ pipeline {
         EC2_USER = 'ec2-user'
         EC2_HOST = 'ec2-13-60-201-40.eu-north-1.compute.amazonaws.com'
         PEM_FILE_PATH = 'C:/Users/Lenovo/Downloads/honors.pem'
-        JAR_NAME = 'devops-0.0.1-SNAPSHOT.jar'
+        JAR_NAME = 'student-0.0.1-SNAPSHOT.jar'
     }
 
     stages {
